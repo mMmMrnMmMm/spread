@@ -18,11 +18,14 @@ def createmap(x,y):
     return Map
 
 def prettyprint():
+    printhelp = ["h to hide help \n", "i j k l for movement \n"]
+    while len(printhelp) < len(wmap[0]):
+        printhelp.append("\n")
     printstr = ""
-    for i in wmap:
-        for j in i:
+    for i in range(len(wmap)):
+        for j in wmap[i]:
             printstr = printstr+j["display"]
-        printstr = printstr+"\n"
+        printstr = printstr+ "    "+ printhelp[i]
     print(printstr)
 
 def tick():
