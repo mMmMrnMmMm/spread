@@ -36,6 +36,7 @@ def tick():
         for x in len(wmap[0])-1:
             cell = wmap[y][x]
             if cell["name"] == "mine":
+                pass
                 
                 
 
