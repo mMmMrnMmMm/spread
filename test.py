@@ -18,20 +18,14 @@ class cell():
         self.submap = []
 
 def createmap(x,y):
-    Map = []
-    width = []
-    for i in range(x):
-        width.append(fillcell())
-    for i in range(y):
-        Map.append(width)
-    return Map
+    return [[fillcell() for i in range(x)] for j in range(y)]
 
 def prettyprint(Map):
     printhelp = phelp
-    while len(printhelp) < len(Map[0]):
+    while len(printhelp) < len(Map):
         printhelp.append("\n")
     printstr = ""
-    for i in range(len(Map)-1):
+    for i in range(len(Map)):
         for j in Map[i]:
             printstr = printstr+j["display"]
         printstr = printstr+ "    "+ printhelp[i]
