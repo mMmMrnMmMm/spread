@@ -1,6 +1,6 @@
 import test as mu
 
-cells = [["empty", " "],
+mu.cells = [["empty", " "],
          ["mountain", "Λ"],
          ["water","~"],
          [],
