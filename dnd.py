@@ -1,5 +1,5 @@
 import random
-import test as mu
+import maputils as mu
 
 
 mu.cells = [["empty", " "],
@@ -10,6 +10,9 @@ mu.cells = [["empty", " "],
 
 mapheight = 8
 mapwidth = 4
+    
+Map = mu.createmap(mapwidth, mapheight)
+
 def wgen(m):
     #elevation
     #0000+00000+  - 11*5 = 55/10 = 5 = 5
@@ -19,7 +22,6 @@ def wgen(m):
     #00000000000
     for i in range(random.randint(1,mapheight*mapwidth/10)):
         pass
-    
-Map = mu.createmap(mapwidth, mapheight)
+
 mu.phelp = []
 mu.prettyprint(Map)

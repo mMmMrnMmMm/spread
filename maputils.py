@@ -25,7 +25,7 @@ class cell():
         self.display = cells[typ][1]
     def setneighborhood(self, typ, size, context):
         if typ == 0 or typ == "square":
-            self.neighborhood = [[] for i in range(size*2+1)]
+            self.neighborhood = [[context[i][j] for j in range(self.x-size, size+self.x+1)] for i in range(self.y-size, size+self.y+1)]
             
 
 def fillcell(x, y): #needs work
