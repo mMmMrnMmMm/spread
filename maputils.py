@@ -1,6 +1,8 @@
 phelp = ["h to hide help \n", "i j k l for movement \n"]
 cells = [["empty", " "]
         ]
+
+from math import sqrt
 # 1 8 7
 # 2 0 6
 # 3 4 5
@@ -25,7 +27,15 @@ class cell():
         self.display = cells[typ][1]
     def setneighborhood(self, typ, size, context):
         if typ == 0 or typ == "square":
-            self.neighborhood = [[context[i][j] for j in range(self.x-size, size+self.x+1)] for i in range(self.y-size, size+self.y+1)]
+            self.neighborhood = [
+                    [context[i][j] for j in range(self.x-size, size+self.x+1)] 
+                    for i in range(self.y-size, size+self.y+1)]
+        elif typ == 1 or typ == "circle":
+            self.neighborhood = [
+                    [context[i][j] for j in range(self.x-size, size+self.x+1) 
+                    if size > sqrt(abs(j - self.x)^2 + abs(i - self.y)^2) ] 
+                    for i in range(self.y-size, size+self.y+1)]
+
             
 
 def fillcell(x, y): #needs work
