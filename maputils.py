@@ -2,7 +2,7 @@ phelp = ["h to hide help \n", "i j k l for movement \n"]
 cells = [["empty", " "]
         ]
 
-from math import sqrt
+from math import sqrt, floor
 # 1 8 7
 # 2 0 6
 # 3 4 5
@@ -26,26 +26,30 @@ class cell():
         self.name = cells[typ][0]
         self.display = cells[typ][1]
     def setneighborhood(self, typ, size, context):
+        self.neighborhood = []
         if typ == 0 or typ == "square":
-            self.neighborhood = []
-            for j in range(self.x - size, self.x + size+1):
+            for j in range(self.y - size, self.y + size+1):
                 self.neighborhood.append([])
-                for i in range(self.y - size, self.y + size+1):
+                for i in range(self.x - size, self.x + size+1):
                     self.neighborhood[len(self.neighborhood)-1].append(
-                            context[i%len(context)][j%len(context)])
+                            context[j%len(context)][i%len(context)])
         elif typ == 1 or typ == "circle":
-            self.neighborhood = [
-                    [context[i][j] for j in range(self.x-size, size+self.x+1) 
-                    if size > sqrt(abs(j - self.x)^2 + abs(i - self.y)^2) ] 
-                    for i in range(self.y-size, size+self.y+1)]
+            for j in range(self.x - size, self.y + size +1):
+                self.neighborhood.append([])
+                for i in range(self.y - int(round(sqrt(abs(size^2 - j^2)))),
+                                self.y + int(round(sqrt(abs(size+1^2 - j^2))))):
+                    self.neighborhood[len(self.neighborhood)-1].append(
+                            context[j%len(context)][i%len(context)])
 
-            
+class Map:
+    def __init__(self, height, width):
+        self.contents = [[cell(0, j, i) for j in range(width)] for i in range(height)]
+    def __getitem__(self, key):
+        return self.contents[key]
+    def __len__(self):
+        return len(self.contents)
 
-def fillcell(x, y): #needs work
-    return cell(0, x, y)
 
-def createmap(x,y, cellgen = fillcell):
-    return [[cellgen(x = i, y = j) for i in range(x)] for j in range(y)]
 
 def prettyprint(Map):
     printhelp = phelp
