@@ -32,7 +32,7 @@ class cell():
                 self.neighborhood.append([])
                 for i in range(self.x - size, self.x + size+1):
                     self.neighborhood[len(self.neighborhood)-1].append(
-                            context[j%len(context)][i%len(context)])
+                            context[j%len(context)][i%len(context[j])])
         elif typ == 1 or typ == "circle":
             for j in range(self.x - size, self.y + size +1):
                 self.neighborhood.append([])
