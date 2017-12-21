@@ -7,22 +7,19 @@ just a way to ensure that all functions in maputils are working
 """
 import maputils as mu
 mu.phelp = []
-mu.cells = [["mountain", "M"]]
-try:
-    a = mu.Map(12, 34)
-    for row in a:
-        for cell in row:
-            cell.display = "="
-        b = a[8][11]
-            
-        b.setneighborhood(0, 2, a)
-        for row in b.neighborhood:
-            for cell in row:
-                cell.display=")"
+a = mu.Map(11, 6)
+for row in a:
+    for cell in row:
+      cell.display = "="
+b = a[4][5]
 
-    b.display = "+"
-    mu.prettyprint(a)
-except:
-    raise
-    
+b.setneighborhood(0, 1, a)
+for row in b.neighborhood:
+    for cell in row:
+        cell.display=")"
+
+
+b.display = "+"
+mu.prettyprint(a)
+
     
