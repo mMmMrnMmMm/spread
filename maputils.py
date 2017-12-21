@@ -1,4 +1,4 @@
-phelp = ["h to hide help \n", "i j k l for movement \n"]
+phelp = ["h to hide help ", "i j k l for movement "]
 cells = [["empty", " "]
         ]
 
@@ -23,27 +23,22 @@ class cell():
         self.x = x
         self.y = y
     def changetype(self, typ):
-        self.name = cells[typ][0]
-        self.display = cells[typ][1]
+        self.name = cells[self.celcheck(typ)][0]
+        self.display = cells[self.celcheck(typ)][1]
     def setneighborhood(self, typ, size, context):
         self.neighborhood = []
         if typ == 0 or typ == "square":
-            for j in range(self.y - size, self.y + size+1):
-                self.neighborhood.append([])
-                for i in range(self.x - size, self.x + size+1):
-                    self.neighborhood[len(self.neighborhood)-1].append(
-                            context[j%len(context)][i%len(context[j])])
-        elif typ == 1 or typ == "circle":
-            for j in range(self.x - size, self.y + size +1):
-                self.neighborhood.append([])
-                for i in range(self.y - int(round(sqrt(abs(size^2 - j^2)))),
-                                self.y + int(round(sqrt(abs(size+1^2 - j^2))))):
-                    self.neighborhood[len(self.neighborhood)-1].append(
-                            context[j%len(context)][i%len(context)])
+            self.neighborhood = [[context[i%context.height][j%context.width] 
+            for j in range(self.x-size, size+self.x+1)] 
+            for i in range(self.y-size, size+self.y+1)]
 
 class Map:
-    def __init__(self, height, width):
+    def __init__(self, height, width, parent = None):
         self.contents = [[cell(0, j, i) for j in range(width)] for i in range(height)]
+        self.parent = parent
+        self.height = height
+        self.width = width
+        self.cells = [self.contents[i%height][i%width] for i in range(width*height)]
     def __getitem__(self, key):
         return self.contents[key]
     def __len__(self):
@@ -59,5 +54,5 @@ def prettyprint(Map):
     for i in range(len(Map)):
         for j in Map[i]:
             printstr = printstr+j.display
-        printstr = printstr+ "    "+ printhelp[i]
+        printstr = printstr+ "    "+ printhelp[i]+"\n"
     print(printstr)
